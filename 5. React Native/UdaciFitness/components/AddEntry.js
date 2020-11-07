@@ -6,6 +6,7 @@ import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
 import { Ionicons } from '@expo/vector-icons';
 import TextButton from './TextButton';
+import { submitEntry, removeEntry } from '../utils/api'
 function SubmitBtn({ onPress }) {
     return (
         <TouchableOpacity onPress={onPress}>
@@ -65,6 +66,7 @@ export default class AddEntry extends Component {
         }))
         // Navigate to Home
         // Save to Database
+        submitEntry({ key, entry })
         // Clear the local notification
     }
     reset = () => {
@@ -75,6 +77,7 @@ export default class AddEntry extends Component {
         // Route to Home
 
         // Update "DB"
+        removeEntry(key)
     }
     render() {
         const metaInfo = getMetricMetaInfo()
