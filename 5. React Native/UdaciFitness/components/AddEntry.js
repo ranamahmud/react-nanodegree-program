@@ -4,6 +4,8 @@ import { getMetricMetaInfo, timeToString } from '../utils/helpers';
 import DateHeader from './DateHeader';
 import UdaciSlider from './UdaciSlider';
 import UdaciSteppers from './UdaciSteppers';
+import { Ionicons } from '@expo/vector-icons';
+import TextButton from './TextButton';
 function SubmitBtn({ onPress }) {
     return (
         <TouchableOpacity onPress={onPress}>
@@ -65,8 +67,29 @@ export default class AddEntry extends Component {
         // Save to Database
         // Clear the local notification
     }
+    reset = () => {
+        const key = timeToString();
+        alert("hi")
+        // Update Redux
+
+        // Route to Home
+
+        // Update "DB"
+    }
     render() {
         const metaInfo = getMetricMetaInfo()
+        if (this.props.alreadyLogged) {
+            return (
+                <View>
+                    <Ionicons name='ios-happy-outline'
+                        size={100} />
+                    <Text>You already logged in your information for today</Text>
+                    <TextButton onPress={this.reset}>
+                        RESET
+                    </TextButton>
+                </View>
+            )
+        }
         return (
             <View>
                 <Text>{JSON.stringify(this.state)}</Text>
