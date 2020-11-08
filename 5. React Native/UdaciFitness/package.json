@@ -24,7 +24,6 @@
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.2",
     "redux": "^4.0.5",
-    "udacifitness-calendar": "github:ftrevo/react-native-calendars#master",
     "udacifitness-calendar-fix": "^10.1.0"
   },
   "devDependencies": {
