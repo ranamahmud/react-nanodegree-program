@@ -94,7 +94,7 @@ class AddEntry extends Component {
     }
     render() {
         const metaInfo = getMetricMetaInfo()
-        if (!this.props.alreadyLogged) {
+        if (this.props.alreadyLogged) {
             return (
                 <View style={styles.center}>
                     <Ionicons name={Platform.ios === 'ios' ? 'ios-happy-outline' : 'md-happy'}
