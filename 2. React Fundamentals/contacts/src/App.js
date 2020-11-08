@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateContact from './CreateContact'
 class ContactList extends React.Component {
   render() {
     const people = this.props.contacts
@@ -38,6 +39,8 @@ function App() {
 
         ]
       } />
+      <CreateContact />
+
     </div>
   );
 }
