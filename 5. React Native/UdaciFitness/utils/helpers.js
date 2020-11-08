@@ -1,8 +1,8 @@
 // utils/helpers.js
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { white, red, orange, blue, lightPurple, pink } from './colors';
+import { FontAwesome, MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
+import { white, red, orange, blue, lightPurp, pink } from './colors';
 export function isBetween(num, x, y) {
     if (num >= x && num <= y) {
         return true
@@ -118,11 +118,8 @@ export function getMetricMetaInfo(metric) {
             type: 'slider',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, { backgroundColor: lightPurple }]}>
-                        <MaterialIcons name='bed'
-                            color={'white'}
-                            size={35}
-                        />
+                    <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
+                        <FontAwesome name="bed" size={35} color="white" />
                     </View >
                 )
             }
