@@ -7,7 +7,7 @@ class CreateContact extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const values = serializeForm(e.target, { hash: true })
-
+    console.log({ values })
     if (this.props.onCreateContact) {
       this.props.onCreateContact(values)
     }
@@ -18,7 +18,7 @@ class CreateContact extends Component {
         <Link
           className='close-create-contact'
           to='/'>
-            Close
+          Close
         </Link>
         <form onSubmit={this.handleSubmit} className='create-contact-form'>
           <ImageInput
