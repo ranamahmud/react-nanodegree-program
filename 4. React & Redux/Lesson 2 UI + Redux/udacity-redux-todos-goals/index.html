@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udacity Todos Goals</title>
+</head>
+
+<body>
+    <div>
+        <h1>Todo List</h1>
+        <input type="text" id="todo" placeholder="Add Todo">
+        <button id="todoBtn">Add Todo</button>
+    </div>
+    <div>
+        <ul id="todos">
+
+        </ul>
+    </div>
+
+
+    <div>
+        <h1>Goals</h1>
+        <input type="text" id="goal" placeholder="Add Todo">
+        <button id="goalBtn">Add Todo</button>
+    </div>
+    <div>
+        <ul id="goals">
+
+        </ul>
+    </div>
+    <script>
+        function generate() {
+            return Math.random().toString(36).substring(2) + (new Date()).getTime().toString(36)
+        }
+
+        // library code
+        function createStore(reducer) {
+            // 1. the state store
+            // 2. get the state
+            // 3. listen to change on the state
+            // 4. update the state
+            let state;
+            const listeners = []
+            const getState = () => state
+            const subscribe = (listener) => {
+                listeners.push(listener)
+
+                return () => {
+                    listeners = listeners.filter((l) => l !== listener)
+                }
+            }
+
+            const dispatch = (action) => {
+                state = reducer(state, action)
+                listeners.forEach((listener) => listener())
+            }
+            return {
+                getState,
+                subscribe,
+                dispatch
+            }
+        }
+
+        // const store = createStore();
+        // store.subscribe(() => {
+        //     console.log('The new state is:', store.getState());
+        // })
+
+        // const unsubscribe = store.subscribe(() => {
+        //     console.log('The state changed.', store.getState());
+        // })
+
+        // unsubscribe();
+
+        // app code
+        function todos(state = [], action) {
+            if (action.type === 'ADD_TODO') {
+                return state.concat([action.todo])
+            }
+
+            return state
+        }
+
+        const store = createStore(todos);
+        store.subscribe(() => {
+            console.log('The new state is: ', store.getState())
+        })
+
+
+        function addTodo() {
+            console.log('todo clicked');
+            const input = document.getElementById('todo')
+            const name = input.value
+            input.value = ''
+            store.dispatch(addTodoAction({
+                name,
+                complete: false,
+                id: generate()
+            }))
+        }
+
+        function addGoal() {
+            const input = document.getElementById('goal')
+            const name = input.value
+            input.value = ''
+            store.dispatch(addGoalAction({
+                name,
+                complete: false,
+                id: generate()
+            }))
+        }
+
+        document.getElementById('todoBtn')
+            .addEventListener('click', addTodo)
+
+        document.getElementById('goalBtn')
+            .addEventListener('click', addGoal)
+
+    </script>
+</body>
+
+</html>
