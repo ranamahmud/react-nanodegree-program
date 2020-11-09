@@ -28,6 +28,19 @@ export class Game extends Component {
         }));
     };
 
+    handleAnswer = e => {
+        const newValueArray = this.makeNewQuestion();
+        this.updateState(newValueArray);
+        const answerWasCorrect = this.evaluateAnswer(e.target.name);
+        this.props.handleAnswer(answerWasCorrect);
+    }
+    evaluateAnswer(givenAnswer) {
+        const { value1, value2, value3, proposedAnswer } = this.state;
+        const correctAnswer = value1 + value2 + value3;
+        return (
+            (correctAnswer === proposedAnswer && givenAnswer == "true") || (correctAnswer !== proposedAnswer && givenAnswer === "false")
+        )
+    }
     render() {
         const { value1, value2, value3, proposedAnswer } = this.state;
         return (
@@ -35,8 +48,8 @@ export class Game extends Component {
                 <div className="equation">
                     <p className="text">{`${value1} + ${value2} + ${value3} = ${proposedAnswer}`}</p>
                 </div>
-                <button>True</button>
-                <button>False</button>
+                <button onClick={this.handleAnswer} name="true">True</button>
+                <button onClick={this.handleAnswer} name="false"> False</button>
             </div>
         )
     }
