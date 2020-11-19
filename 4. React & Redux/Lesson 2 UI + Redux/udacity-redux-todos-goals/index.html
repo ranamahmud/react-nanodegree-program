@@ -63,7 +63,7 @@
             return { type: ADD_GOAL, goal }
         }
 
-        function removeGoal(id) {
+        function removeGoalAction(id) {
             return { type: REMOVE_GOAL, id }
         }
         // library code
@@ -103,7 +103,7 @@
                 case REMOVE_TODO:
                     return state.filter((todo) => todo.id !== action.id)
                 case TOGGLE_TODO:
-                    state.map((todo) => todo.id !== action.id ?
+                    return state.map((todo) => todo.id !== action.id ?
                         todo : Object.assign({}, todo, { complete: !todo.complete }))
                 default:
                     return state
@@ -143,7 +143,6 @@
         // dom functions
 
         function addTodo() {
-            console.log('todo clicked');
             const input = document.getElementById('todo')
             const name = input.value
             input.value = ''
@@ -185,9 +184,8 @@
             })
             node.appendChild(text)
             node.append(removeBtn);
-            node.style.textDecoration = todo.complete ? 'line-through' : 'none';
+            node.style.textDecoration = todo.complete === true ? 'line-through' : 'none';
             node.addEventListener('click', () => {
-                console.log('clicked');
                 store.dispatch(toggleTodoAction(todo.id))
             })
             document.getElementById('todos')
