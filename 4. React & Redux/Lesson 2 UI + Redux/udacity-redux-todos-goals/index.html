@@ -128,16 +128,19 @@
             }
         }
         const store = createStore(app);
-        store.subscribe(() => {
-            console.log('The new state is: ', store.getState())
-        })
+
 
 
 
         store.subscribe(() => {
-            console.log('The new state is: ', store.getState())
-        })
+            const { goals, todos } = store.getState()
+            document.getElementById('goals').innerHTML = ''
+            document.getElementById('todos').innerHTML = ''
+            todos.forEach(addTodoToDOM)
+            goals.forEach(addGoalToDOM)
 
+        })
+        // dom functions
 
         function addTodo() {
             console.log('todo clicked');
@@ -168,6 +171,41 @@
         document.getElementById('goalBtn')
             .addEventListener('click', addGoal)
 
+        function createRemoveButton(onClick) {
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = 'X';
+            removeBtn.addEventListener('click', onClick);
+            return removeBtn;
+        }
+        function addTodoToDOM(todo) {
+            const node = document.createElement('li');
+            const text = document.createTextNode(todo.name);
+            const removeBtn = createRemoveButton(() => {
+                store.dispatch(removeTodoAction(todo.id));
+            })
+            node.appendChild(text)
+            node.append(removeBtn);
+            node.style.textDecoration = todo.complete ? 'line-through' : 'none';
+            node.addEventListener('click', () => {
+                console.log('clicked');
+                store.dispatch(toggleTodoAction(todo.id))
+            })
+            document.getElementById('todos')
+                .appendChild(node)
+        }
+
+        function addGoalToDOM(goal) {
+            const node = document.createElement('li');
+            const text = document.createTextNode(goal.name);
+            const removeBtn = createRemoveButton(() => {
+                store.dispatch(removeGoalAction(goal.id));
+            })
+            node.appendChild(text)
+            node.appendChild(removeBtn)
+
+            document.getElementById('goals')
+                .appendChild(node)
+        }
     </script>
 </body>
 
