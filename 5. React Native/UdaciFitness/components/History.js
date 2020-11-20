@@ -9,11 +9,17 @@ import DateHeader from './DateHeader';
 import { white } from '../utils/colors'
 class History extends Component {
     componentDidMount() {
+        console.log(Platform.OS)
         const { dispatch } = this.props
         fetchCalendarResults()
             .then((entries) => dispatch(receiveEntries(entries)))
             .then(({ entries }) => {
+                console.log(entries)
+                console.log("timeToString")
+                console.log(timeToString())
+                console.log("value" + entries[timeToString()])
                 if (!entries[timeToString()]) {
+                    console.log("not found")
                     dispatch(addEntry({
                         [timeToString()]: getDailyReminderValue()
                     }))
