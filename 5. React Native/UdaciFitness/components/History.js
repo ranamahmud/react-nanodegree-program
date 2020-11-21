@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, View, StyleSheet, Platfom, TouchableOpacity } from 'react-native'
+import { ScrollView, Text, View, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { receiveEntries, addEntry } from '../actions'
 import { timeToString, getDailyReminderValue } from '../utils/helpers'
 import { fetchCalendarResults } from '../utils/api'
 import UdaciFitnessCalendar from 'udacifitness-calendar-fix'
 import DateHeader from './DateHeader';
-import { white } from '../utils/colors'
+import { white } from '../utils/colors';
+import MetricCard from './MetricCard';
 class History extends Component {
     componentDidMount() {
         console.log(Platform.OS)
@@ -31,16 +32,28 @@ class History extends Component {
             <View style={styles.item}>
                 {
                     today ?
-                        <Text>{JSON.stringify(today)}</Text> :
-                        <Text>{JSON.stringify(metrics)}</Text>
+
+                        <View>
+                            <DateHeader date={formattedDate} />
+                            <Text style={styles.noDateText}>
+                                {today}
+                            </Text>
+                        </View>
+                        :
+                        <TouchableOpacity onPress={() => console.log("preseed")}>
+                            <MetricCard metrics={metrics} date={formattedDate} />
+                        </TouchableOpacity>
                 }
             </View>
         )
     }
     renderEmptyDate = (formattedDate) => {
         return (
-            <View>
-                <Text>No Data for this day</Text>
+            <View style={styles.item}>
+                <DateHeader date={formattedDate} />
+                <Text style={styles.noDateText}>
+                    You didn't log any data on this day.
+                </Text>
             </View>
         )
     }
@@ -72,6 +85,12 @@ const styles = StyleSheet.create({
             width: 0,
             height: 3
         }
+    },
+
+    noDateText: {
+        fontSize: 20,
+        paddingTop: 20,
+        paddingBottom: 20,
     }
 })
 function mapStateToProps(entries) {
