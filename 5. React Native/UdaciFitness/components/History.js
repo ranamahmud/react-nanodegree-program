@@ -27,13 +27,15 @@ class History extends Component {
             })
     }
     renderItem = ({ today, ...metrics }, formattedDate, key) => {
-        <View style={styles.item}>
-            {
-                today ?
-                    <Text>{JSON.stringify(today)}</Text> :
-                    <Text>{JSON.stringify(metrics)}</Text>
-            }
-        </View>
+        return (
+            <View style={styles.item}>
+                {
+                    today ?
+                        <Text>{JSON.stringify(today)}</Text> :
+                        <Text>{JSON.stringify(metrics)}</Text>
+                }
+            </View>
+        )
     }
     renderEmptyDate = (formattedDate) => {
         return (

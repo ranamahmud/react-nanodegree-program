@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import { ScrollView } from 'react-native-gesture-handler';
 import History from './components/History';
-
+import Live from './components/Live';
 export default function App() {
   return (
     <Provider store={createStore(reducer)}>
