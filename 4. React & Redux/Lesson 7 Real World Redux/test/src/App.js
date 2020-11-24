@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { handleInitialData } from './actions/shared'
 import Dashboard from './components/Dashboard';
 import LoadingBar from 'react-redux-loading-bar'
+import NewTweet from './components/NewTweet';
 
 class App extends Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NewTweet />
         <LoadingBar />
 
         {
