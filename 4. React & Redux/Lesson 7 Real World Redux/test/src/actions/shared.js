@@ -1,11 +1,11 @@
-import { getIntialData } from '../utils/api';
+import { getInitialData } from '../utils/api';
 import { receiveUsers } from '../actions/users';
 import { receiveTweets } from '../actions/tweets';
 import { setAuthedUser } from '../actions/authedUser';
 const AUTHED_ID = 'tylermcginnis';
-export function handleIntialData() {
+export function handleInitialData() {
     return (dispatch) => {
-        return getIntialData()
+        return getInitialData()
             .then(({ users, tweets }) => {
                 dispatch(receiveUsers(users));
                 dispatch(receiveTweets(tweets));
