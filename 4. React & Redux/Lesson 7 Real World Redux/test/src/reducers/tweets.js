@@ -21,7 +21,7 @@ export default function users(state = {}, action) {
         case ADD_TWEET:
             const { tweet } = action;
             let replyingTo = {}
-            if (tweet.replyingTo != null) {
+            if (tweet.replyingTo !== null) {
                 replyingTo = {
                     [tweet.replyingTo]: {
                         ...state[tweet.replyingTo],
